@@ -39,6 +39,8 @@ export default class BetterPastePlugin extends Plugin {
 			],
 		});
 
+		// TODO: Look at combining latex parsing and text cleaning into a single command
+
 		this.addCommand({
 			id: "paste-as-latex",
 			name: "Paste as LaTeX",

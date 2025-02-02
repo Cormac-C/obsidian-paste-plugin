@@ -80,7 +80,7 @@ class MathClipboardHandler {
 		latex = latex.replace(
 			/<span class="s1" style="font: 7px Helvetica;">(.*?)<\/span>/g,
 			"_{$1}"
-		);
+		); // This is a hacky handling of some timescripts but might be ambiguous
 
 		// Remove remaining HTML tags
 		latex = latex.replace(/<[^>]+>/g, "");
