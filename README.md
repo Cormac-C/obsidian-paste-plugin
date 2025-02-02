@@ -1,6 +1,6 @@
 # Better Past Plugin
 
-When copying text from PDFs or other sources, you often end up with ugly formatting, unwanted newlines, and hyphenated line breaks. Better paste cleans up the formatting, fitting betterinto your Obsidian files.
+When copying text from PDFs or other sources, you often end up with ugly formatting, unwanted newlines, and hyphenated line breaks. Better paste cleans up the formatting, fitting better into your notes.
 
 ## Usage
 
