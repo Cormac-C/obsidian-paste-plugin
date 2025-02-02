@@ -103,7 +103,7 @@ export default class BetterPastePlugin extends Plugin {
 	async pasteLatex(editor: Editor): Promise<void> {
 		const clipboardData = await mathClipboardHandler.readClipboard();
 		const latex = mathClipboardHandler.convertToLatex(clipboardData);
-		const wrappedLatex = `$$${latex}$$`;
+		const wrappedLatex = `$${latex}$`;
 		editor.replaceSelection(wrappedLatex);
 	}
 

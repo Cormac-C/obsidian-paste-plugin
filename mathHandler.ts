@@ -77,6 +77,10 @@ class MathClipboardHandler {
 		let latex = html;
 		latex = latex.replace(/<sup>(.*?)<\/sup>/g, "^{$1}");
 		latex = latex.replace(/<sub>(.*?)<\/sub>/g, "_{$1}");
+		latex = latex.replace(
+			/<span class="s1" style="font: 7px Helvetica;">(.*?)<\/span>/g,
+			"_{$1}"
+		);
 
 		// Remove remaining HTML tags
 		latex = latex.replace(/<[^>]+>/g, "");
@@ -106,6 +110,23 @@ class MathClipboardHandler {
 			["÷", "\\div"],
 			["±", "\\pm"],
 			["∈", "\\in"],
+			["√", "\\sqrt"],
+			["≠", "\\neq"],
+			["≤", "\\leq"],
+			["≥", "\\geq"],
+			["∝", "\\propto"],
+			["∀", "\\forall"],
+			["∃", "\\exists"],
+			["∅", "\\emptyset"],
+			["∈", "\\in"],
+			["∉", "\\notin"],
+			["∩", "\\cap"],
+			["∪", "\\cup"],
+			["∧", "\\land"],
+			["∨", "\\lor"],
+			["¬", "\\lnot"],
+			["⇒", "\\Rightarrow"],
+			["⇔", "\\Leftrightarrow"],
 			// Add more mappings as needed
 		]);
 
