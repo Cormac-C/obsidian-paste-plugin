@@ -1,0 +1,11 @@
+{
+	"id": "obsidian-paste-plugin-world",
+	"name": "Better Paste",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Improve Copy Paste from pdfs into obsidian.",
+	"author": "Cormac",
+	"authorUrl": "https://cormaccureton.com/",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}
