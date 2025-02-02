@@ -12,11 +12,11 @@ import {
 // Remember to rename these classes and interfaces!
 
 interface BetterPastePluginSettings {
-	mySetting: string;
+	mergeHyphenatedWords: boolean;
 }
 
 const DEFAULT_SETTINGS: BetterPastePluginSettings = {
-	mySetting: "default",
+	mergeHyphenatedWords: true,
 };
 
 export default class BetterPastePlugin extends Plugin {
@@ -24,16 +24,6 @@ export default class BetterPastePlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
-
-		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon(
-			"dice",
-			"Paste Plugin",
-			(evt: MouseEvent) => {
-				// Called when the user clicks the icon.
-				new Notice("This is a notice!");
-			}
-		);
 
 		this.addCommand({
 			id: "paste-cleaned-text",
@@ -48,16 +38,20 @@ export default class BetterPastePlugin extends Plugin {
 				},
 			],
 		});
-		// Look at how paste is handled here: https://github.com/denolehov/obsidian-url-into-selection/blob/master/src/main.ts
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		// this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.registerEvent(
+			this.app.workspace.on("editor-menu", (menu, editor, view) => {
+				menu.addItem((item) => {
+					item.setIcon("clipboard");
+					item.setTitle("Paste Cleaned Text");
+					item.onClick(async () => {
+						await this.pasteCleanedText(editor);
+					});
+				});
+			})
+		);
 
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, "click", (evt: MouseEvent) => {
-			console.log("click", evt);
-		});
+		this.addSettingTab(new SampleSettingTab(this.app, this));
 	}
 
 	onunload() {}
@@ -81,12 +75,16 @@ export default class BetterPastePlugin extends Plugin {
 	}
 
 	cleanText(text: string): string {
-		// TODO: look at making it more customizable
-		const cleanedText = text
-			.replace(/-\s*\n\s*/g, "") // Merge hyphenated words
+		let cleanedText = text;
+		if (this.settings.mergeHyphenatedWords) {
+			cleanedText = text.replace(/-\s*\n\s*/g, ""); // Merge hyphenated words
+		}
+
+		cleanedText = cleanedText
 			.replace(/(\r\n|\n|\r)/gm, " ") // Replace all newlines with spaces
 			.replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
 			.trim();
+
 		return cleanedText;
 	}
 }
@@ -105,14 +103,15 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName("Setting #1")
-			.setDesc("It's a secret")
-			.addText((text) =>
-				text
-					.setPlaceholder("Enter your secret")
-					.setValue(this.plugin.settings.mySetting)
+			.setName("Merge hyphenated words")
+			.setDesc(
+				"Merge words that are hyphenated across multiple lines. E.g. 'hyphen-\nated' will become 'hyphenated'. Note this could potentially get rid of intentional dashes."
+			)
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.mergeHyphenatedWords)
 					.onChange(async (value) => {
-						this.plugin.settings.mySetting = value;
+						this.plugin.settings.mergeHyphenatedWords = value;
 						await this.plugin.saveSettings();
 					})
 			);
