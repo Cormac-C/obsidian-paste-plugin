@@ -7,6 +7,8 @@ import {
 	Setting,
 } from "obsidian";
 
+import MathClipboardHandler from "./mathHandler";
+
 interface BetterPastePluginSettings {
 	mergeHyphenatedWords: boolean;
 }
@@ -14,6 +16,8 @@ interface BetterPastePluginSettings {
 const DEFAULT_SETTINGS: BetterPastePluginSettings = {
 	mergeHyphenatedWords: true,
 };
+
+const mathClipboardHandler = new MathClipboardHandler();
 
 export default class BetterPastePlugin extends Plugin {
 	settings: BetterPastePluginSettings;
@@ -35,6 +39,20 @@ export default class BetterPastePlugin extends Plugin {
 			],
 		});
 
+		this.addCommand({
+			id: "paste-as-latex",
+			name: "Paste as LaTeX",
+			editorCallback: async (editor: Editor, view: MarkdownView) => {
+				this.pasteLatex(editor);
+			},
+			hotkeys: [
+				{
+					modifiers: ["Mod", "Shift"],
+					key: "l",
+				},
+			],
+		});
+
 		this.registerEvent(
 			this.app.workspace.on("editor-menu", (menu, editor, view) => {
 				menu.addItem((item) => {
@@ -42,6 +60,18 @@ export default class BetterPastePlugin extends Plugin {
 					item.setTitle("Paste Cleaned Text");
 					item.onClick(async () => {
 						await this.pasteCleanedText(editor);
+					});
+				});
+			})
+		);
+
+		this.registerEvent(
+			this.app.workspace.on("editor-menu", (menu, editor, view) => {
+				menu.addItem((item) => {
+					item.setIcon("clipboard");
+					item.setTitle("Paste as LaTeX");
+					item.onClick(async () => {
+						this.pasteLatex(editor);
 					});
 				});
 			})
@@ -68,6 +98,13 @@ export default class BetterPastePlugin extends Plugin {
 		const clipboardText = await navigator.clipboard.readText();
 		const cleanedText = this.cleanText(clipboardText);
 		editor.replaceSelection(cleanedText);
+	}
+
+	async pasteLatex(editor: Editor): Promise<void> {
+		const clipboardData = await mathClipboardHandler.readClipboard();
+		const latex = mathClipboardHandler.convertToLatex(clipboardData);
+		const wrappedLatex = `$$${latex}$$`;
+		editor.replaceSelection(wrappedLatex);
 	}
 
 	cleanText(text: string): string {
