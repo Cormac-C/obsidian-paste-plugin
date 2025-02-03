@@ -6,9 +6,9 @@ When copying text from PDFs or other sources, you often end up with ugly formatt
 
 ## Usage
 
-The default hotkey is `Ctrl/Cmd + Shift + V`.
+You can search for the command by hitting `CTRL/CMD + P` then searching for Better Paste.
 
-This overlaps with the 'Paste as plain text' shotcut, if you don't want that overlap then you can change it at "Settings -> Hotkeys -> Better Paste".
+I also recommend setting a hotkey, I use `Ctrl/Cmd + Shift + V` but you can pick something that works for you. The hotkey can be set at "Settings -> Hotkeys -> Better Paste".
 
 ## Installation
 

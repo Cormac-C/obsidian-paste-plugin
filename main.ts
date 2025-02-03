@@ -27,12 +27,6 @@ export default class BetterPastePlugin extends Plugin {
 			editorCallback: async (editor: Editor, view: MarkdownView) => {
 				await this.pasteCleanedText(editor);
 			},
-			hotkeys: [
-				{
-					modifiers: ["Mod", "Shift"],
-					key: "v",
-				},
-			],
 		});
 
 		this.registerEvent(
