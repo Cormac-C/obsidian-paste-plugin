@@ -4,6 +4,9 @@ interface ClipboardData {
 	mathML?: string;
 }
 
+// The clipboard content is often missing information about the full math
+// Probably need to go with an OCR approach, anything rule based will have blindspots
+
 class MathClipboardHandler {
 	async readClipboard(): Promise<ClipboardData> {
 		try {
