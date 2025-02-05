@@ -132,7 +132,7 @@ class MathClipboardHandler {
 
 		let latex = text;
 		for (const [unicode, replacement] of unicodeToLatex) {
-			latex = latex.replace(new RegExp(unicode, "g"), replacement);
+			latex = latex.replace(new RegExp(unicode, "g"), replacement + " ");
 		}
 		return latex;
 	}
