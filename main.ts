@@ -31,12 +31,6 @@ export default class BetterPastePlugin extends Plugin {
 			editorCallback: async (editor: Editor, view: MarkdownView) => {
 				await this.pasteCleanedText(editor);
 			},
-			hotkeys: [
-				{
-					modifiers: ["Mod", "Shift"],
-					key: "v",
-				},
-			],
 		});
 
 		// TODO: Look at combining latex parsing and text cleaning into a single command
@@ -79,7 +73,7 @@ export default class BetterPastePlugin extends Plugin {
 			})
 		);
 
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.addSettingTab(new BetterPasteSettingTab(this.app, this));
 	}
 
 	onunload() {}
@@ -124,7 +118,7 @@ export default class BetterPastePlugin extends Plugin {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class BetterPasteSettingTab extends PluginSettingTab {
 	plugin: BetterPastePlugin;
 
 	constructor(app: App, plugin: BetterPastePlugin) {
