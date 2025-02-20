@@ -23,7 +23,7 @@ export default class BetterPastePlugin extends Plugin {
 
 		this.addCommand({
 			id: "paste-cleaned-text",
-			name: "Paste Cleaned Text",
+			name: "Paste cleaned text",
 			editorCallback: async (editor: Editor, view: MarkdownView) => {
 				await this.pasteCleanedText(editor);
 			},
@@ -33,7 +33,7 @@ export default class BetterPastePlugin extends Plugin {
 			this.app.workspace.on("editor-menu", (menu, editor, view) => {
 				menu.addItem((item) => {
 					item.setIcon("clipboard");
-					item.setTitle("Paste Cleaned Text");
+					item.setTitle("Paste cleaned text");
 					item.onClick(async () => {
 						await this.pasteCleanedText(editor);
 					});

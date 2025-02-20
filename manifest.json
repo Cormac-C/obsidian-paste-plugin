@@ -3,7 +3,7 @@
 	"name": "Better Paste",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Improve copy-paste from pdfs by cleaning newlines.",
+	"description": "Improve copy-paste from PDFs by cleaning newlines.",
 	"author": "Cormac",
 	"authorUrl": "https://cormaccureton.com/",
 	"fundingUrl": "",
