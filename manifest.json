@@ -1,6 +1,6 @@
 {
-	"id": "better-paste",
-	"name": "Better Paste",
+	"id": "pdf-paste",
+	"name": "PDF Paste",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "Improve copy-paste from PDFs by cleaning newlines.",

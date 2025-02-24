@@ -7,16 +7,16 @@ import {
 	Setting,
 } from "obsidian";
 
-interface BetterPastePluginSettings {
+interface PDFPastePluginSettings {
 	mergeHyphenatedWords: boolean;
 }
 
-const DEFAULT_SETTINGS: BetterPastePluginSettings = {
+const DEFAULT_SETTINGS: PDFPastePluginSettings = {
 	mergeHyphenatedWords: true,
 };
 
-export default class BetterPastePlugin extends Plugin {
-	settings: BetterPastePluginSettings;
+export default class PDFPastePlugin extends Plugin {
+	settings: PDFPastePluginSettings;
 
 	async onload() {
 		await this.loadSettings();
@@ -41,7 +41,7 @@ export default class BetterPastePlugin extends Plugin {
 			})
 		);
 
-		this.addSettingTab(new BetterPasteSettingTab(this.app, this));
+		this.addSettingTab(new PDFPasteSettingTab(this.app, this));
 	}
 
 	onunload() {}
@@ -79,10 +79,10 @@ export default class BetterPastePlugin extends Plugin {
 	}
 }
 
-class BetterPasteSettingTab extends PluginSettingTab {
-	plugin: BetterPastePlugin;
+class PDFPasteSettingTab extends PluginSettingTab {
+	plugin: PDFPastePlugin;
 
-	constructor(app: App, plugin: BetterPastePlugin) {
+	constructor(app: App, plugin: PDFPastePlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
